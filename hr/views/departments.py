@@ -1,10 +1,11 @@
-from rest_framework import status, viewsets
+from rest_framework import status
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from hr.models.department import Department
 from hr.serializers.departments import DepartmentSerializer
+from core.views import BaseViewSet
 
-class DepartmentViewSet(viewsets.ModelViewSet):
+class DepartmentViewSet(BaseViewSet):
     queryset = Department.objects.all()
     serializer_class = DepartmentSerializer
     lookup_field = 'guid'

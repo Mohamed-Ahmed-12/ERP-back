@@ -1,6 +1,5 @@
 # ERP Backend
 
-[![Ask DeepWiki](https://devin.ai/assets/askdeepwiki.png)](https://deepwiki.com/Mohamed-Ahmed-12/ERP-back)
 
 A modular and scalable ERP backend built with Django and Django REST Framework. This system is designed with a plug-and-play architecture, allowing different business modules like Human Resources (HR) and Equipment Management to be enabled or disabled as needed.
 

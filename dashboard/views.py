@@ -1,9 +1,9 @@
-from rest_framework import views
-from rest_framework.response import Response 
+from rest_framework.response import Response
 from hr.models.department import Department
 from hr.models.employee import Employee
+from core.views import BaseAPIView
 
-class DashboardView(views.APIView):
+class DashboardView(BaseAPIView):
     def get(self , request):
         department_count = Department.objects.count()
         employee_count = Employee.objects.count()

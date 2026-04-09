@@ -1,7 +1,19 @@
 from django.apps import apps
 from rest_framework.decorators import api_view
-from rest_framework.response import Response
 
+from rest_framework.views import APIView
+from rest_framework import viewsets
+from core.response import success_response
+from core.mixins import ApiResponseMixin
+
+
+class BaseAPIView(ApiResponseMixin, APIView):
+    pass
+
+class BaseViewSet(ApiResponseMixin, viewsets.ModelViewSet):
+    pass
+
+# ========================
 TRACKED_MODULES = [
     "hr",
     "merchant",
@@ -13,7 +25,7 @@ TRACKED_MODULES = [
 
 @api_view(["GET"])
 def installed_modules(request):
-    return Response({
+    return success_response({
         module: apps.is_installed(module)
         for module in TRACKED_MODULES
     })

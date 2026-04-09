@@ -1,12 +1,14 @@
-from rest_framework import status, viewsets
+from rest_framework import status
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.parsers import MultiPartParser, FormParser
+
 from hr.models.candidate import Candidate
-
 from hr.serializers.candidates import CandidateReadSerializer, CandidateWriteSerializer
+from core.views import BaseViewSet
 
-class CandidateViewSet(viewsets.ModelViewSet):
+
+class CandidateViewSet(BaseViewSet):
     queryset = Candidate.objects.all()
     # parser_classes = (MultiPartParser, FormParser)
     lookup_field = 'guid'

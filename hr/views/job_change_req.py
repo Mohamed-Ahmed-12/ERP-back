@@ -1,10 +1,12 @@
-from rest_framework import status, viewsets
+from rest_framework import status
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
 from hr.models.job_change_request import JobChangeRequest
 from hr.serializers.job_change_req import JobChangeReadSerializer , JobChangeWriteSerializer
-class JobChangeRequestView(viewsets.ModelViewSet):
+from core.views import BaseViewSet
+
+class JobChangeRequestView(BaseViewSet):
     queryset = JobChangeRequest.objects.all()
     lookup_field = 'guid'
         

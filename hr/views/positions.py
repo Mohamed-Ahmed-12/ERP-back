@@ -1,11 +1,12 @@
-from rest_framework import status, viewsets
+from rest_framework import status
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
 from hr.models.job_position import JobPosition
 from hr.serializers.positions import JobPositionReadSerializer, JobPositionWriteSerializer    
+from core.views import BaseViewSet
 
-class JobPositionViewSet(viewsets.ModelViewSet):
+class JobPositionViewSet(BaseViewSet):
     queryset = JobPosition.objects.all()
     lookup_field = 'guid'
     

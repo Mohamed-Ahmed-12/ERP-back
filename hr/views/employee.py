@@ -1,11 +1,12 @@
-from rest_framework import status, viewsets
+from rest_framework import status
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
 from hr.models.employee import Employee
 from hr.serializers.employee import EmployeeSerializer, EmployeeWriteSerializer
+from core.views import BaseViewSet
 
-class EmployeeViewset(viewsets.ModelViewSet):
+class EmployeeViewset(BaseViewSet):
     queryset = Employee.objects.all()
     lookup_field = 'guid'
         

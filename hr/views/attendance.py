@@ -1,10 +1,11 @@
-from rest_framework import status, viewsets
+from rest_framework import status
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from hr.models.attendance import Attendance
 from hr.serializers.attendance import AttendanceReadSerializer, AttendanceWriteSerializer
+from core.views import BaseViewSet
 
-class AttendanceViewSet(viewsets.ModelViewSet):
+class AttendanceViewSet(BaseViewSet):
     queryset = Attendance.objects.all()
     lookup_field = 'guid'
     

@@ -115,3 +115,35 @@ class OptionalFKMixin:
             return Model.objects.filter(**{pk_field: raw_id}).first()
 
         return resolver
+    
+# =======================
+
+from rest_framework.response import Response
+
+class ApiResponseMixin:
+    """
+    Mixin to standardize all DRF responses to the ERP's custom format.
+    """
+    def finalize_response(self, request, response, *args, **kwargs):
+        # Only wrap data if it hasn't been wrapped already 
+        # and if the status code indicates success (2xx)
+        if isinstance(response, Response) and 200 <= response.status_code < 300:
+            
+            # Extract standard DRF pagination if it exists
+            pagination = None
+            if hasattr(response, 'paginated_data'):
+                pagination = response.paginated_data # You'll need to set this in your paginator
+            
+            custom_body = {
+                "success": True,
+                "status": response.status_code,
+                "message": getattr(self, 'custom_message', "Success."),
+                "data": response.data,
+            }
+            
+            if pagination:
+                custom_body["pagination"] = pagination
+                
+            response.data = custom_body
+            
+        return super().finalize_response(request, response, *args, **kwargs)

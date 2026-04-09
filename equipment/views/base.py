@@ -1,13 +1,15 @@
 from rest_framework import status, viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
-
+from core.views import BaseViewSet
 
 from equipment.models import EquipmentType , EquipmentBrand , Equipment , EquipmentEmployee
 from equipment.serializers.base import \
     EquipmentTypeSerializer , EquipmentReadSerializer , EquipmentWriteSerializer , EquipmentBrandSerializer , EquipmentEmployeeSerializer
+from core.mixins import ApiResponseMixin
 
-class EquipmentTypeViewSet(viewsets.ModelViewSet):
+
+class EquipmentTypeViewSet(BaseViewSet):
     queryset = EquipmentType.objects.all()
     serializer_class = EquipmentTypeSerializer
     lookup_field = 'guid'
@@ -18,7 +20,7 @@ class EquipmentTypeViewSet(viewsets.ModelViewSet):
         data = [{'label': t.name, 'value': t.guid} for t in types]
         return Response(data=data  , status=status.HTTP_200_OK)
 
-class EquipmentBrandViewSet(viewsets.ModelViewSet):
+class EquipmentBrandViewSet(BaseViewSet):
     queryset = EquipmentBrand.objects.all()
     serializer_class = EquipmentBrandSerializer
     lookup_field = 'guid'
@@ -29,7 +31,7 @@ class EquipmentBrandViewSet(viewsets.ModelViewSet):
         data = [{'label': brand.name, 'value': brand.guid} for brand in brands]
         return Response(data=data  , status=status.HTTP_200_OK)
 
-class EquipmentViewSet(viewsets.ModelViewSet):
+class EquipmentViewSet(BaseViewSet):
     queryset = Equipment.objects.all()
     lookup_field = 'guid'
     
@@ -44,7 +46,7 @@ class EquipmentViewSet(viewsets.ModelViewSet):
         data = [{'label': eq.name, 'value': eq.guid} for eq in equipments]
         return Response(data=data  , status=status.HTTP_200_OK)
     
-class EquipmentEmployeeViewSet(viewsets.ModelViewSet):
+class EquipmentEmployeeViewSet(BaseViewSet):
     queryset = EquipmentEmployee.objects.all()
     serializer_class = EquipmentEmployeeSerializer
     lookup_field = 'guid'
@@ -54,5 +56,4 @@ class EquipmentEmployeeViewSet(viewsets.ModelViewSet):
         employees = self.get_queryset()
         data = [{'label': e.first_name + " " + e.last_name , 'value': e.guid} for e in employees]
         return Response(data=data  , status=status.HTTP_200_OK)
-    
     
